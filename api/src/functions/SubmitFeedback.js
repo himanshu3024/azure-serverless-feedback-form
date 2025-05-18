@@ -1,10 +1,19 @@
-const { TableClient, AzureNamedKeyCredential } = require("@azure/data-tables");
+const { TableClient } = require("@azure/data-tables");
+const formidable = require("formidable");
 
 module.exports = async function (context, req) {
     try {
-        const formData = req.body;
+        // Parse form data
+        const form = new formidable.IncomingForm();
+        const { fields, files } = await new Promise((resolve, reject) => {
+            form.parse(req, (err, fields, files) => {
+                if (err) reject(err);
+                resolve({ fields, files });
+            });
+        });
 
-        if (!formData.name || !formData.email || !formData.message) {
+        // Validate required fields
+        if (!fields.name || !fields.email || !fields.message) {
             context.res = {
                 status: 400,
                 body: { message: "Missing required fields." }
@@ -13,7 +22,7 @@ module.exports = async function (context, req) {
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
+        if (!emailRegex.test(fields.email)) {
             context.res = {
                 status: 400,
                 body: { message: "Invalid email format." }
@@ -23,29 +32,35 @@ module.exports = async function (context, req) {
 
         // Read connection string from environment variable
         const connectionString = process.env["STORAGE_CONNECTION_STRING_3024"];
-
+        if (!connectionString) {
+            context.res = {
+                status: 500,
+                body: { message: "Storage connection string not configured." }
+            };
+            return;
+        }
 
         // Create table client
         const tableName = "FeedbackTable";
         const tableClient = TableClient.fromConnectionString(connectionString, tableName);
 
-        // Create table if not exists
+        // Create table if it doesn't exist
         await tableClient.createTable();
 
         // Save feedback
         const entity = {
             partitionKey: "feedback",
-            rowKey: `${Date.now()}`, // Unique identifier
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone || "",
-            overallRating: formData.overallRating || "",
-            easeRating: formData.easeRating || "",
-            supportRating: formData.supportRating || "",
-            categories: formData.categories || "",
-            message: formData.message,
-            contactConsent: formData.contactConsent === "true",
-            newsletter: formData.newsletter === "true"
+            rowKey: `${Date.now()}`,
+            name: fields.name || "",
+            email: fields.email || "",
+            phone: fields.phone || "",
+            overallRating: fields.overallRating || "",
+            easeRating: fields.easeRating || "",
+            supportRating: fields.supportRating || "",
+            categories: fields.categories || "",
+            message: fields.message || "",
+            contactConsent: fields.contactConsent === "true",
+            newsletter: fields.newsletter === "true"
         };
 
         await tableClient.createEntity(entity);
@@ -55,8 +70,8 @@ module.exports = async function (context, req) {
             body: {
                 message: "Feedback submitted and saved to Azure Table Storage!",
                 received: {
-                    name: formData.name,
-                    email: formData.email
+                    name: fields.name,
+                    email: fields.email
                 }
             }
         };
@@ -64,7 +79,7 @@ module.exports = async function (context, req) {
         context.log.error("Error:", error.message);
         context.res = {
             status: 500,
-            body: { message: "Internal server error." }
+            body: { message: "Internal server error.", error: error.message }
         };
     }
 };
