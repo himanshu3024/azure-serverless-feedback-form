@@ -1,0 +1,11 @@
+📄 On Resume:
+Project: Azure Serverless Feedback Form
+Built and deployed a fully functional serverless web app on Microsoft Azure.
+
+Developed frontend with HTML & JavaScript
+
+Backend API built using Azure Functions (Node.js)
+
+Deployed using Azure Static Web Apps and GitHub Actions CI/CD
+
+Live Demo: https://your-app-url
