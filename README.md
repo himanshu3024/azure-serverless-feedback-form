@@ -12,7 +12,7 @@ A simple web feedback form built using Azure Static Web Apps and Azure Functions
 [Click here to view the live form](https://white-pond-036691610.6.azurestaticapps.net/)
 
 ## Folder Structure
-- `/frontend` → Web form (HTML + JS)
+- `/frontend` → Web form (HTML + CSS + JS)
 - `/api` → Azure Function to process form data
 
 ## How It Works
