@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Feedback Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="feedback-container">
+    <div class="feedback-header">
+      <h1>We Value Your Feedback</h1>
+      <p>Help us improve our services by sharing your experience. Your feedback is important to us!</p>
+    </div>
+    
+    <div class="feedback-body">
+      <div class="feedback-steps">
+        <div class="step active" data-step="1">
+          <div class="step-number">1</div>
+          <div class="step-label">Basic Info</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-number">2</div>
+          <div class="step-label">Your Experience</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-number">3</div>
+          <div class="step-label">Additional Details</div>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-number">4</div>
+          <div class="step-label">Submit</div>
+        </div>
+      </div>
+      
+      <form id="feedbackForm">
+        <!-- Step 1: Basic Information -->
+        <div class="form-step active" data-step="1">
+          <div class="form-group">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+            <div class="error-message" id="nameError">Please enter your name</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+            <div class="error-message" id="emailError">Please enter a valid email address</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number (Optional)</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+          </div>
+          
+          <div class="actions">
+            <div></div>
+            <button type="button" class="btn btn-primary next-step" data-next="2">Next Step</button>
+          </div>
+        </div>
+        
+        <!-- Step 2: Experience Rating -->
+        <div class="form-step" data-step="2">
+          <div class="rating-container">
+            <div class="rating-group">
+              <div class="rating-title">How would you rate your overall experience?</div>
+              <div class="rating-stars" data-rating="overall">
+                <div class="rating-star" data-value="1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="3">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+              </div>
+              <input type="hidden" name="overallRating" id="overallRating" value="">
+            </div>
+            
+            <div class="rating-group">
+              <div class="rating-title">How easy was it to use our service?</div>
+              <div class="rating-stars" data-rating="ease">
+                <div class="rating-star" data-value="1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="3">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+              </div>
+              <input type="hidden" name="easeRating" id="easeRating" value="">
+            </div>
+            
+            <div class="rating-group">
+              <div class="rating-title">How would you rate our customer support?</div>
+              <div class="rating-stars" data-rating="support">
+                <div class="rating-star" data-value="1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="3">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="rating-star" data-value="5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+              </div>
+              <input type="hidden" name="supportRating" id="supportRating" value="">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">What aspects of our service are you providing feedback on?</label>
+            <div class="category-options">
+              <div class="category-option" data-value="Website">Website</div>
+              <div class="category-option" data-value="Mobile App">Mobile App</div>
+              <div class="category-option" data-value="Customer Service">Customer Service</div>
+              <div class="category-option" data-value="Product Quality">Product Quality</div>
+              <div class="category-option" data-value="Billing">Billing</div>
+              <div class="category-option" data-value="Other">Other</div>
+            </div>
+            <input type="hidden" name="categories" id="categories" value="">
+          </div>
+          
+          <div class="actions">
+            <button type="button" class="btn btn-secondary prev-step" data-prev="1">Previous</button>
+            <button type="button" class="btn btn-primary next-step" data-next="3">Next Step</button>
+          </div>
+        </div>
+        
+        <!-- Step 3: Additional Details -->
+        <div class="form-step" data-step="3">
+          <div class="form-group">
+            <label for="message" class="form-label">Your Feedback</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Please share your thoughts, suggestions, or concerns" rows="5" required></textarea>
+            <div class="error-message" id="messageError">Please enter your feedback</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Would you like to attach a screenshot or document? (Optional)</label>
+            <div class="file-upload">
+              <label class="file-upload-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Upload File (Max 5MB)</span>
+              </label>
+              <input type="file" class="file-upload-input" id="fileUpload" name="fileUpload">
+            </div>
+            <div class="file-preview" id="filePreview">
+              <div class="file-preview-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              </div>
+              <div class="file-preview-info">
+                <div class="file-preview-name" id="fileName"></div>
+                <div class="file-preview-size" id="fileSize"></div>
+              </div>
+              <div class="file-preview-remove" id="fileRemove">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="contactConsent" name="contactConsent">
+              <label class="form-check-label" for="contactConsent">I consent to being contacted about my feedback</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="newsletter" name="newsletter">
+              <label class="form-check-label" for="newsletter">Subscribe to our newsletter for updates</label>
+            </div>
+          </div>
+          
+          <div class="actions">
+            <button type="button" class="btn btn-secondary prev-step" data-prev="2">Previous</button>
+            <button type="button" class="btn btn-primary next-step" data-next="4">Next Step</button>
+          </div>
+        </div>
+        
+        <!-- Step 4: Review & Submit -->
+        <div class="form-step" data-step="4">
+          <h2>Review Your Feedback</h2>
+          <p>Please review your information before submitting.</p>
+          
+          <div class="review-section">
+            <div class="review-item">
+              <div class="review-label">Name:</div>
+              <div class="review-value" id="reviewName"></div>
+            </div>
+            <div class="review-item">
+              <div class="review-label">Email:</div>
+              <div class="review-value" id="reviewEmail"></div>
+            </div>
+            <div class="review-item">
+              <div class="review-label">Overall Rating:</div>
+              <div class="review-value" id="reviewOverallRating"></div>
+            </div>
+            <div class="review-item">
+              <div class="review-label">Categories:</div>
+              <div class="review-value" id="reviewCategories"></div>
+            </div>
+            <div class="review-item">
+              <div class="review-label">Feedback:</div>
+              <div class="review-value" id="reviewMessage"></div>
+            </div>
+          </div>
+          
+          <div class="actions">
+            <button type="button" class="btn btn-secondary prev-step" data-prev="3">Previous</button>
+            <button type="submit" class="btn btn-submit">Submit Feedback</button>
+          </div>
+          
+          <div class="loader" id="submitLoader"></div>
+        </div>
+      </form>
+      
+      <!-- Success Message -->
+      <div class="feedback-success" id="feedbackSuccess">
+        <div class="success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+        <h2>Thank You for Your Feedback!</h2>
+        <p>We appreciate you taking the time to share your thoughts with us. Your feedback helps us improve our services.</p>
+        <button type="button" class="btn btn-primary" id="newFeedbackBtn">Submit Another Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
