@@ -3,7 +3,7 @@
 A simple web feedback form built using Azure Static Web Apps and Azure Functions.
 
 ## Features
-- Frontend: HTML + JavaScript
+- Frontend: HTML + CSS + JavaScript
 - Backend: Azure Function to handle form submissions
 - Hosted using Azure Static Web Apps
 - CI/CD with GitHub Actions
