@@ -1,18 +1,17 @@
+const { TableClient, AzureNamedKeyCredential } = require("@azure/data-tables");
+
 module.exports = async function (context, req) {
     try {
-        // Extract form data from request body
         const formData = req.body;
 
-        // Validate required fields
         if (!formData.name || !formData.email || !formData.message) {
             context.res = {
                 status: 400,
-                body: { message: "Missing required fields: name, email, and message are required." }
+                body: { message: "Missing required fields." }
             };
             return;
         }
 
-        // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.email)) {
             context.res = {
@@ -22,54 +21,49 @@ module.exports = async function (context, req) {
             return;
         }
 
-        // Validate file size if file is included (max 5MB)
-        if (formData.file) {
-            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-            if (formData.file.size > maxSize) {
-                context.res = {
-                    status: 400,
-                    body: { message: "File size exceeds 5MB limit." }
-                };
-                return;
-            }
-        }
+        // Read connection string from environment variable
+        const connectionString = process.env["AzureWebJobsStorage"];
 
-        // Log the feedback data (excluding file binary for brevity)
-        const feedbackLog = {
+        // Create table client
+        const tableName = "FeedbackTable";
+        const tableClient = TableClient.fromConnectionString(connectionString, tableName);
+
+        // Create table if not exists
+        await tableClient.createTable();
+
+        // Save feedback
+        const entity = {
+            partitionKey: "feedback",
+            rowKey: `${Date.now()}`, // Unique identifier
             name: formData.name,
             email: formData.email,
-            phone: formData.phone || 'Not provided',
-            overallRating: formData.overallRating || 'Not rated',
-            easeRating: formData.easeRating || 'Not rated',
-            supportRating: formData.supportRating || 'Not rated',
-            categories: formData.categories || 'None selected',
+            phone: formData.phone || "",
+            overallRating: formData.overallRating || "",
+            easeRating: formData.easeRating || "",
+            supportRating: formData.supportRating || "",
+            categories: formData.categories || "",
             message: formData.message,
-            contactConsent: formData.contactConsent === 'true',
-            newsletter: formData.newsletter === 'true',
-            fileAttached: !!formData.file
+            contactConsent: formData.contactConsent === "true",
+            newsletter: formData.newsletter === "true"
         };
-        context.log('Received feedback:', feedbackLog);
 
-        // Simulate processing (e.g., saving to database or storage)
-        // In a real application, you might save the file to blob storage and feedback to a database
-        const responseData = {
-            message: "Thank you for your feedback!",
-            received: {
-                name: formData.name,
-                email: formData.email,
-                timestamp: new Date().toISOString()
-            }
-        };
+        await tableClient.createEntity(entity);
 
         context.res = {
             status: 200,
-            body: responseData
+            body: {
+                message: "Feedback submitted and saved to Azure Table Storage!",
+                received: {
+                    name: formData.name,
+                    email: formData.email
+                }
+            }
         };
     } catch (error) {
-        context.log.error('Error processing feedback:', error);
+        context.log.error("Error:", error.message);
         context.res = {
             status: 500,
-            body: { message: "An error occurred while processing your feedback. Please try again later." }
+            body: { message: "Internal server error." }
         };
     }
 };
