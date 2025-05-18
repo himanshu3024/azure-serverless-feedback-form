@@ -22,7 +22,8 @@ module.exports = async function (context, req) {
         }
 
         // Read connection string from environment variable
-        const connectionString = process.env["AzureWebJobsStorage"];
+        const connectionString = process.env["STORAGE_CONNECTION_STRING_3024"];
+
 
         // Create table client
         const tableName = "FeedbackTable";
